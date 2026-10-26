@@ -104,15 +104,15 @@ describe("MVC_peliculas", function () {
             this.msg_err = "No se encuentran inputs";
             browser.assert.elements('input', { atLeast: 3 });
 
-            this.msg_err = "No se encuentra el input con id 'titulo'";
-            browser.assert.element('input#titulo');
+            this.msg_err = "No se encuentra el input con id 'title'";
+            browser.assert.element('input#title');
 
             this.msg_err = "No se encuentra el input con id 'director'";
             browser.assert.element('input#director');
 
-            this.msg_err = "No se encuentra el input con id 'miniatura'";
+            this.msg_err = "No se encuentra el input con id 'thumbnail'";
             this.msg_ok = "El formulario de crear una nueva película se muestra correctamente";
-            browser.assert.element('input#miniatura');
+            browser.assert.element('input#thumbnail');
 
         }
     });
@@ -135,23 +135,23 @@ describe("MVC_peliculas", function () {
             if (error_nav) {
                 this.msg_err = `Error al hacer click en el botón con clase 'new'`;
             }
-            this.msg_err = "No se encuentra el input con clase 'titulo'";
+            this.msg_err = "No se encuentra el input con id 'title'";
 
-            [error_nav, resp] = await to(browser.fill('#titulo', "Titanic"));
+            [error_nav, resp] = await to(browser.fill('#title', "Titanic"));
             if (error_nav) {
                 this.msg_err = `Error al rellenar el campo de título`;
             }
 
-            this.msg_err = "No se encuentra el input con clase 'director'";
+            this.msg_err = "No se encuentra el input con id 'director'";
             [error_nav, resp] = await to(browser.fill('#director', "James Cameron"));
             if (error_nav) {
                 this.msg_err = `Error al rellenar el campo de director`;
             }
 
-            this.msg_err = "No se encuentra el input con clase 'miniatura'";
-            [error_nav, resp] = await to(browser.fill('#miniatura', "https://www.storytel.com/images/200x200/0000011196.jpg"));
+            this.msg_err = "No se encuentra el input con id 'thumbnail'";
+            [error_nav, resp] = await to(browser.fill('#thumbnail', "https://www.storytel.com/images/200x200/0000011196.jpg"));
             if (error_nav) {
-                this.msg_err = `Error al rellenar el campo de miniatura`;
+                this.msg_err = `Error al rellenar el campo de thumbnail`;
             }
 
             this.msg_err =  `Error al hacer click en el botón con clase 'create'`;
@@ -204,7 +204,7 @@ describe("MVC_peliculas", function () {
             [error_nav, resp] = await to(browser.visit(URL));
             let movies = browser.querySelectorAll('.movie');
             const expected = 3;
-            browser.document._localStorage["mis_peliculas"] = "[]";
+            browser.document._localStorage["my_movies"] = "[]";
             browser.assert.evaluate("indexContr()", undefined);
             this.msg_err = "No se encuentra el botón con clase 'reset'";
             [error_nav, resp] = await to(browser.click('button.reset'));
@@ -217,7 +217,7 @@ describe("MVC_peliculas", function () {
             \t\t\t Esperadas:${expected}
             \t\t\t Encontradas:${browser.querySelectorAll('.movie').length}`;
             // [error_nav, resp] = await to(browser.visit(URL));
-            JSON.parse(browser.document._localStorage["mis_peliculas"]).length.should.be.equal(expected);
+            JSON.parse(browser.document._localStorage["my_movies"]).length.should.be.equal(expected);
             (browser.querySelectorAll('.movie').length).should.be.equal(expected);
         }
     });
